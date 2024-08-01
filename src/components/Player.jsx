@@ -6,7 +6,7 @@ export default function Player({ name, symbol }) {
     <li>
       <span className="player">
         {!isEditing && <span className="player-name">{name}</span>}
-        {isEditing && <input onChange={() => (name = value)}></input>}
+        {isEditing && <input type="text" value={name}></input>}
         <span className="player-symbol">{symbol}</span>
       </span>
 
