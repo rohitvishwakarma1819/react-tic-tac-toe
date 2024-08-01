@@ -2,6 +2,10 @@ import { useState } from "react";
 
 export default function Player({ name, symbol }) {
   const [isEditing, setIsEditing] = useState(false);
+
+  function handleEditClick() {
+    setIsEditing(!isEditing);
+  }
   return (
     <li>
       <span className="player">
@@ -10,9 +14,7 @@ export default function Player({ name, symbol }) {
         <span className="player-symbol">{symbol}</span>
       </span>
 
-      <button onClick={() => setIsEditing(!isEditing)}>
-        {isEditing ? "Save" : "Edit"}
-      </button>
+      <button onClick={handleEditClick}>{isEditing ? "Save" : "Edit"}</button>
     </li>
   );
 }
