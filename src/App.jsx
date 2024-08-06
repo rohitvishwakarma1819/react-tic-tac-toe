@@ -41,6 +41,7 @@ function isGameOver(gameBoard) {
 
 function App() {
   const [gameTurns, setGameTurns] = useState([]);
+  const [players, setPlayers] = useState({ X: "Player 1", O: "Player 2" });
 
   const activePlayer = deriveActivePlayer(gameTurns);
   let winner;
@@ -52,7 +53,7 @@ function App() {
     gameBoard[rowIndex][colIndex] = player;
   }
 
-  winner = isGameOver(gameBoard);
+  winner = players[isGameOver(gameBoard)];
   hasDraw = !winner && gameTurns.length === 9;
 
   function handleSquareSelect(rowIndex, colIndex) {
@@ -71,19 +72,25 @@ function App() {
     setGameTurns([]);
   }
 
+  function onPlayerNameChange(newName, symbol) {
+    setPlayers((prevPlayers) => ({ ...prevPlayers, [symbol]: newName }));
+  }
+
   return (
     <main>
       <div id="game-container">
         <ol id="players" className="highlight-player">
           <Player
-            initialName={"Player1"}
+            initialName={players.X}
             symbol={"X"}
             isActive={activePlayer === "X"}
+            onPlayerNameChange={onPlayerNameChange}
           />
           <Player
-            initialName={"Player2"}
+            initialName={players.O}
             symbol={"O"}
             isActive={activePlayer === "O"}
+            onPlayerNameChange={onPlayerNameChange}
           />
         </ol>
         {(winner || hasDraw) && (
